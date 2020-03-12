@@ -5,7 +5,7 @@ export const getUsers = () => {
         type: 'GET_USERS',
         payload: axios({
             method: "GET",
-            url: process.env.REACT_APP_URL+'user'
+            url: `http://192.168.1.13:4040/user`
         })
     }
 }

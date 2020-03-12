@@ -8,6 +8,9 @@ import store from './src/components/redux/store';
 import HomeScreen from './src/components/screen/Home/HomeScreen';
 import LoginScreen from './src/components/screen/Login/LoginScreen'
 import ProductScreen from './src/components/screen/Product/ProductScreen';
+import AddProductScreen from './src/components/screen/Product/AddProductScreen';
+import EditProductScreen from './src/components/screen/Product/EditProductScreen';
+import ProductDetailScreen from './src/components/screen/Product/prooductDetailScreen';
 
 const tabNavigator = createBottomTabNavigator(
   {
@@ -17,9 +20,22 @@ const tabNavigator = createBottomTabNavigator(
 
 const homeNavigator = createStackNavigator(
   {
-    Home: HomeScreen,
-    Login: LoginScreen,
-    Product: ProductScreen
+    Home: {
+      screen : HomeScreen,
+      navigationOptions:{
+        header:null
+      }
+    },
+    Login: {
+      screen: LoginScreen,
+      navigationOptions:{
+        header:null
+      }
+    },
+    Product: ProductScreen,
+    AddProduct: AddProductScreen,
+    EditProduct: EditProductScreen,
+    ProductDetail: ProductDetailScreen
   },
   {
     initialRouteName: 'Login'

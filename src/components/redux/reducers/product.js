@@ -50,7 +50,7 @@ const product = (state = initialState, action) => {
                 ...state
             }
         case 'GET_PRODUCTS_FULFILLED':
-            console.log(action.payload)
+            // console.log(action.payload)
            return{
                ...state,
                products: action.payload.data.result,
@@ -68,7 +68,7 @@ const product = (state = initialState, action) => {
                 // isLoading: true
             }
         case 'POST_PRODUCT_FULFILLED':
-            const newProducts = [action.payload.data.result];
+            const newProducts = [...state.products, action.payload.data.result];
             return{
                 ...state,
                 // isLoading: false,
