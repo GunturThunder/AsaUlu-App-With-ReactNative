@@ -35,6 +35,12 @@ class ProductScreen extends Component{
     deleteProduct = (id_product) =>{
         this.props.dispatch(deleteProduct(id_product))
     }
+    convertToRupiah = (angka) => {
+        var rupiah = ''
+        var angkarev = angka.toString().split('').reverse().join('')
+        for (var i = 0; i < angkarev.length; i++) if (i % 3 == 0) rupiah += angkarev.substr(i, 3) + '.'
+        return 'Rp. ' + rupiah.split('', rupiah.length - 1).reverse().join('') + ',-'
+      }
     renderRow = ({item}) => {
         return(
             <View style={{ flex: 1, flexDirection: 'row', marginBottom: 10, borderBottomWidth:1, borderBottomColor: "rgba(0,0,0,.1)", height: 110 }}>
@@ -42,6 +48,7 @@ class ProductScreen extends Component{
                 <View style={{ flex: 1, flexDirection: 'column' }}>
                     <Text style={{ fontSize: 18, marginLeft: 10, marginBottom: 5 }}>{item.name}</Text>
                     <Text style={{ fontSize: 15, marginLeft: 10, marginBottom: 18 }}>Stock {item.stock}</Text>
+                    <Text style={{marginLeft: 10}}>{this.convertToRupiah(item.price)}</Text>
                     <View style={{ flexDirection: 'row' }}>
                         <TouchableOpacity style={{ marginLeft: 10 }} onPress={() => this.props.navigation.navigate('EditProduct', {
                             product: item
@@ -74,13 +81,13 @@ class ProductScreen extends Component{
                     </View>
                     <View style={{flexDirection:'row', marginHorizontal:10,justifyContent:'center'}}>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')}>
-                            <Image style={{width:40,height:40,backgroundColor:'#ABAFBC',borderRadius:10}} source={require('./home.png')} />
+                            <Image style={{width:40,height:40,borderRadius:10}} source={require('./home.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity  style={{marginLeft:40}}>
-                            <Image style={{width:40,height:40,backgroundColor:'#ABAFBC',borderRadius:10}} source={require('./product.png')} />
+                            <Image style={{width:40,height:40,borderRadius:10}} source={require('./product.png')} />
                         </TouchableOpacity>
                         <TouchableOpacity  style={{marginLeft:40}}>
-                            <Image  style={{width:40,height:40,backgroundColor:'#ABAFBC',borderRadius:10}} source={require('./account.png')} />
+                            <Image  style={{width:40,height:40,borderRadius:10}} source={require('./account.png')} />
                         </TouchableOpacity>
                         </View>
                 </View>

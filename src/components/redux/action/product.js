@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {REACT_APP_API} from 'react-native-dotenv'
 
 export const pagination = (data) => {
     return {
@@ -14,16 +15,12 @@ export const pagination = (data) => {
     }
 }
 
-export const searchProduct = (name, sort) => {
+export const searchProduct = (name, category) => {
     return {
         type: 'GET_SEARCHPRODUCTS',
         payload: axios({
             method: "GET",
-            url: process.env.REACT_APP_URL + `product?limit=6&searchName=${name}&sort=${sort}`,
-            headers: {
-                authorization: localStorage.getItem('token'),
-                "user-id": localStorage.getItem('user-id')
-            }
+            url: `${REACT_APP_API}/product?&searchName=${name}&id_category=${category}`,
         })
     }
 }
@@ -33,7 +30,7 @@ export const sortProduct = (data) => {
         type: 'GET_SORTPRODUCTS',
         payload: axios({
             method: "GET",
-            url: process.env.REACT_APP_URL + `product?sort=${data}`,
+            url: `http://192.168.1.13:4040/product?sort=${data}`,
             headers: {
                 authorization: localStorage.getItem('token'),
                 "user-id": localStorage.getItem('user-id')
@@ -48,7 +45,7 @@ export const getProducts = (name) => {
             type: 'GET_PRODUCTS',
             payload: axios({
                 method: "GET",
-                url: `http://192.168.1.13:4040/product?searchName=${name}`,
+                url: `${REACT_APP_API}/product?searchName=${name}`,
             })
         }
     }
@@ -57,7 +54,7 @@ export const getProducts = (name) => {
             type: 'GET_PRODUCTS',
             payload: axios({
                 method: "GET",
-                url: 'http://192.168.1.13:4040/product',
+                url: `${REACT_APP_API}/product`,
             })
         }
     }
@@ -68,7 +65,7 @@ export const createProduct = (data) => {
         type: 'POST_PRODUCT',
         payload: axios({
             method: "POST",
-            url: 'http://192.168.1.13:4040/product',
+            url: `${REACT_APP_API}/product`,
             data: data
         })
     }
@@ -79,7 +76,7 @@ export const updateProduct = (id_product, data) => {
         type: "UPDATE_PRODUCT",
         payload: axios({
             method: "PATCH",
-            url: `http://192.168.1.13:4040/product/${id_product}`,
+            url: `${REACT_APP_API}/product/${id_product}`,
             data: data
         })
     }
@@ -90,7 +87,7 @@ export const deleteProduct = (id_product) => {
         type: "DELETE_PRODUCT",
         payload: axios({
             method: "DELETE",
-            url: `http://192.168.1.13:4040/product/${id_product}`
+            url: `${REACT_APP_API}/product/${id_product}`
         })
     }
 }
