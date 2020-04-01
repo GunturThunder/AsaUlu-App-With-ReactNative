@@ -1,16 +1,27 @@
 import React, { Component } from 'react';
 import { View, TextInput, Image, Button, Text, ScrollView, FlatList, AsyncStorage } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
-
+import Modal from 'react-native-modal';
+import Icon from 'react-native-vector-icons/Ionicons';
+import { addCart } from '../../redux/action/cart';
 import { connect } from 'react-redux';
-import { getProducts,searchProduct } from '../../redux/action/product';
+import { getProducts, searchProduct } from '../../redux/action/product';
 
 
 class HomeScreen extends Component {
   state = {
+    modal: [],
     name: '',
-    category:''
+    category: '',
+    isModalVisible: false,
   }
+  toggleModal = (e) => {
+    // console.log(e.image)
+    this.setState({
+      isModalVisible: !this.state.isModalVisible,
+      modal: e
+    });
+  };
   componentDidMount() {
     this.getProducts();
   }
@@ -27,13 +38,13 @@ class HomeScreen extends Component {
   }
   renderRow = ({ item }) => {
     return (
-      <TouchableOpacity onPress={() => console.log(item.id_product)} style={{ flexDirection: 'row' }}>
+      <TouchableOpacity onPress={() => this.toggleModal(item)} style={{ flexDirection: 'row' }}>
         <Image style={{ width: 110, height: 90, marginLeft: 3, marginBottom: 3 }} source={{ uri: item.image }} />
       </TouchableOpacity>
     )
   }
-  sortProductHadle (event){
-    console.log(event)
+  sortProductHadle(event) {
+    // console.log(event)
     this.setState({
       category: event
     })
@@ -45,15 +56,19 @@ class HomeScreen extends Component {
     await this.setState({
       name: event
     })
-    console.log(this.props)
+    // console.log(this.props)
     this.props.dispatch(searchProduct(this.state.name, this.state.category));
   }
-
+  onAddChart = (product) => {
+    console.log("add to chat")
+    product.qty = 1
+    this.props.dispatch(addCart(product))
+  }
   render() {
     const { products } = this.props;
     console.disableYellowBox = true;
     // console.log(products)
-    let data = ['food','drink']
+    let data = ['food', 'drink']
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         {/* <ScrollView> */}
@@ -72,15 +87,15 @@ class HomeScreen extends Component {
             <Image style={{ marginTop: 18, position: 'absolute', width: 40, height: 40, justifyContent: 'center', marginLeft: 10 }} source={require('./search.png')} />
           </View>
           <View style={{ flexDirection: 'row', paddingVertical: 10 }}>
-            <TouchableOpacity onPress={()=>this.sortProductHadle('food')} style={{ paddingVertical: 6, backgroundColor: '#D0D3DA', width: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 12 }} >
+            <TouchableOpacity onPress={() => this.sortProductHadle('food')} style={{ paddingVertical: 6, backgroundColor: '#D0D3DA', width: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 12 }} >
               <Text style={{ color: '#96B6E2' }}>Food</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>this.sortProductHadle('drink')} style={{ paddingVertical: 6, backgroundColor: '#D0D3DA', width: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginLeft: 10 }} >
+            <TouchableOpacity onPress={() => this.sortProductHadle('drink')} style={{ paddingVertical: 6, backgroundColor: '#D0D3DA', width: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginLeft: 10 }} >
               <Text style={{ color: '#96B6E2' }}>Drink</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity onPress={()=>this.sortProductHadle('')} style={{ paddingVertical: 6, backgroundColor: '#D0D3DA', width: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginLeft: 10 }} >
+            <TouchableOpacity onPress={() => this.sortProductHadle('')} style={{ paddingVertical: 6, backgroundColor: '#D0D3DA', width: 70, justifyContent: 'center', alignItems: 'center', borderRadius: 12, marginLeft: 10 }} >
               <Text style={{ color: '#96B6E2' }}>All</Text>
             </TouchableOpacity>
           </View>
@@ -95,7 +110,7 @@ class HomeScreen extends Component {
                   <View>
                     <Text style={{ marginLeft: 25, marginTop: 10, fontWeight: 'bold', color: '#707274', fontSize: 15 }}>Black Forest</Text>
                     <View>
-                      <Text style={{ marginLeft: 25, color: '#707274', marginTop: 5 }}>Chocolate, Cake, Food </Text>
+                      <Text style={{ marginLeft: 25, color: '#707274', marginTop: 5 }}>Ch  ocolate, Cake, Food </Text>
                     </View>
                     <View>
                       <Text style={{ fontWeight: 'bold', marginLeft: 25, color: '#707274', marginTop: 15, fontSize: 20, color: '#FF85BE' }}>Rp. 30.000-,</Text>
@@ -126,17 +141,41 @@ class HomeScreen extends Component {
 
         </View>
         {/* </ScrollView> */}
-        <View style={{ flexDirection: 'row', marginHorizontal: 10, justifyContent: 'center', backgroundColor: 'white' }}>
+        <View style={{ flexDirection: 'row', marginHorizontal: 40, justifyContent: 'space-between', backgroundColor: 'white', alignItems: 'center' }}>
           <TouchableOpacity>
-            <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./home.png')} />
+            {/* <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./home.png')} /> */}
+            <Icon style={{ fontSize: 25 }} name="ios-home" />
           </TouchableOpacity>
-          <TouchableOpacity style={{ marginLeft: 40 }} onPress={() => this.props.navigation.navigate('Product')}>
-            <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./product.png')} />
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Cart')}>
+            {/* <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./home.png')} /> */}
+            <Icon style={{ fontSize: 25 }} name="md-cart" />
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('ProductDetail')} style={{ marginLeft: 40 }}>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('Product')}>
+            <Icon style={{ fontSize: 25 }} name="md-pizza" />
+          </TouchableOpacity>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate('ProductDetail')}>
             <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./account.png')} />
           </TouchableOpacity>
         </View>
+        <Modal isVisible={this.state.isModalVisible}>
+          <View style={{ height: 400, backgroundColor: 'white' }}>
+            <Button title="Close" onPress={this.toggleModal} />
+            <Image style={{ height: 220, marginBottom: 10 }} source={{ uri: this.state.modal.image }} />
+            <View style={{ flex: 1, marginHorizontal: 10 }}>
+              <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', borderBottomColor: '#818181', borderBottomWidth: 1 }}>
+                <Text style={{ fontSize: 30, fontWeight: 'bold', color: '#434343' }}>{this.state.modal.name}</Text>
+                <Text style={{ fontSize: 17, color: '#434343' }}>Rp.{this.state.modal.price}</Text>
+              </View>
+              <View style={{ justifyContent: 'flex-end', flex: 1, marginBottom: 20 }}>
+                {/* <TouchableOpacity onClick={()=>console.log('pencet')} style={{ width: 100, borderRadius: 10, backgroundColor: '#2196F3', justifyContent: 'center', alignItems: 'center' }}>
+                  <Text style={{ padding: 10, color: 'white' }}>CheckOut</Text>
+                </TouchableOpacity> */}
+                <Button title="CheckOut" onPress={() => this.onAddChart(this.state.modal)} />
+                {/* <Button title="CheckOut" onClick={()=>console.log("pencet")} /> */}
+              </View>
+            </View>
+          </View>
+        </Modal>
       </View>
     )
   }

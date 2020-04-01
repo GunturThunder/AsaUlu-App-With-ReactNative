@@ -11,6 +11,7 @@ import ProductScreen from './src/components/screen/Product/ProductScreen';
 import AddProductScreen from './src/components/screen/Product/AddProductScreen';
 import EditProductScreen from './src/components/screen/Product/EditProductScreen';
 import ProductDetailScreen from './src/components/screen/Product/prooductDetailScreen';
+import CartScreen from './src/components/screen/Cart/Cart'
 
 const tabNavigator = createBottomTabNavigator(
   {
@@ -35,7 +36,8 @@ const homeNavigator = createStackNavigator(
     Product: ProductScreen,
     AddProduct: AddProductScreen,
     EditProduct: EditProductScreen,
-    ProductDetail: ProductDetailScreen
+    ProductDetail: ProductDetailScreen,
+    Cart: CartScreen,
   },
   {
     initialRouteName: 'Login'
