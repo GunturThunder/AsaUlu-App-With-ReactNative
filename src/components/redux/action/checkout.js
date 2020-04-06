@@ -4,6 +4,6 @@ export const postOrder = (data) => {
     // console.log(data)
     return {
       type: 'POST_ORDER',
-      payload: axios.post(`http://20.20.20.147:4040/order`, data)
+      payload: axios.post(`${REACT_APP_API}/order`, data)
     }
   }

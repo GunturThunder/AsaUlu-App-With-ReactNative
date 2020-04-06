@@ -58,7 +58,7 @@ class Cart extends Component {
         // console.log("total=",total)
         return (
             <View style={{ flex: 1, backgroundColor: 'white' }}>
-                <View style={{ height: 470 }}>
+                <View style={{ height: 450}}>
                     <ScrollView>
                         <Check />
                         {cart.map((cart) =>
@@ -95,7 +95,7 @@ class Cart extends Component {
                         )}
                     </ScrollView>
                 </View>
-                <View style={{ flex: 1 }}>
+                <View style={{ flex: 1, borderBottomColor: 'black', borderBottomWidth: 1 }}>
                     <View style={{ marginHorizontal: 20, flexDirection: 'row', justifyContent: 'space-between' }}>
                         <View style={{ flexDirection: 'row' }}>
                             <Text style={{ fontSize: 20, color: '#606060' }}>Subtotal </Text>
@@ -103,8 +103,27 @@ class Cart extends Component {
                         </View>
                         <Text style={{ fontSize: 17, color: '#606060' }}>Rp. {total}</Text>
                     </View>
-                    <TouchableOpacity onPress={() => this.onCheckout(cart)} style={{ height: 55, backgroundColor: '#3A95D9', marginHorizontal: 50, borderRadius: 28, marginTop: 2, justifyContent: 'center', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => this.onCheckout(cart)} style={{ height: 30, backgroundColor: '#3A95D9', marginHorizontal: 100, borderRadius: 28, marginTop: 2, justifyContent: 'center', alignItems: 'center' }}>
                         <Text style={{ color: 'white', fontSize: 20 }}>Order</Text>
+                    </TouchableOpacity>
+                </View>
+                <View style={{ flexDirection: 'row', marginHorizontal: 40, justifyContent: 'space-between', backgroundColor: 'white', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('Home')} style={{ justifyContent: 'center', alignItems: 'center' }}>
+                        <Icon style={{ fontSize: 25 }} name="ios-home" />
+                        <Text style={{ fontSize: 10 }}>Home</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} >
+                        <Icon style={{ fontSize: 25, color: '#2370AA' }} name="md-cart" />
+                        <Text style={{ fontSize: 10, color: '#2370AA' }}>Cart</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => this.props.navigation.navigate('Product')}>
+                        <Icon style={{ fontSize: 25 }} name="md-pizza" />
+                        <Text style={{ fontSize: 10 }}>Food</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity onPress={() => this.props.navigation.navigate('ProductDetail')}>
+
+                        <Icon style={{ fontSize: 25 }} name="md-contact" />
+                        <Text style={{ fontSize: 10 }}>User</Text>
                     </TouchableOpacity>
                 </View>
             </View>

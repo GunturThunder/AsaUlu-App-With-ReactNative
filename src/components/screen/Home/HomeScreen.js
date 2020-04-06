@@ -63,6 +63,10 @@ class HomeScreen extends Component {
     console.log("add to chat")
     product.qty = 1
     this.props.dispatch(addCart(product))
+    this.setState({
+      isModalVisible: !this.state.isModalVisible
+    })
+    alert('Product Added In Cart')
   }
   render() {
     const { products } = this.props;
@@ -72,7 +76,7 @@ class HomeScreen extends Component {
     return (
       <View style={{ backgroundColor: 'white', flex: 1 }}>
         {/* <ScrollView> */}
-        <View style={{ flex: 1, backgroundColor: 'white', marginHorizontal: 10 }}>
+        <View style={{ height: 575, backgroundColor: 'white', marginHorizontal: 10 }}>
 
           <View style={{ flexDirection: 'row' }}>
             <Text style={{ fontSize: 20, fontWeight: 'bold', marginTop: 10, color: '#707274' }}>Hi Admin</Text>
@@ -141,21 +145,29 @@ class HomeScreen extends Component {
 
         </View>
         {/* </ScrollView> */}
-        <View style={{ flexDirection: 'row', marginHorizontal: 40, justifyContent: 'space-between', backgroundColor: 'white', alignItems: 'center' }}>
-          <TouchableOpacity>
-            {/* <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./home.png')} /> */}
-            <Icon style={{ fontSize: 25 }} name="ios-home" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Cart')}>
-            {/* <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./home.png')} /> */}
-            <Icon style={{ fontSize: 25 }} name="md-cart" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('Product')}>
-            <Icon style={{ fontSize: 25 }} name="md-pizza" />
-          </TouchableOpacity>
-          <TouchableOpacity onPress={() => this.props.navigation.navigate('ProductDetail')}>
-            <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./account.png')} />
-          </TouchableOpacity>
+        <View style={{flex:1,borderTopWidth:1,borderTopColor:'black'}}>
+          <View style={{flexDirection: 'row', marginHorizontal: 40, justifyContent: 'space-between', backgroundColor: 'white', alignItems: 'center' }}>
+            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }}>
+              {/* <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./home.png')} /> */}
+              <Icon style={{ fontSize: 25, color: '#2370AA' }} name="ios-home" />
+              <Text style={{ fontSize: 10, color: '#2370AA' }}>Home</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => this.props.navigation.navigate('Cart')}>
+              {/* <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./home.png')} /> */}
+              <Icon style={{ fontSize: 25 }} name="md-cart" />
+              <Text style={{ fontSize: 10 }}>Cart</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={{ justifyContent: 'center', alignItems: 'center' }} onPress={() => this.props.navigation.navigate('Product')}>
+              <Icon style={{ fontSize: 25 }} name="md-pizza" />
+              <Text style={{ fontSize: 10 }}>Food</Text>
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('ProductDetail')}>
+
+              <Icon style={{ fontSize: 25 }} name="md-contact" />
+              <Text style={{ fontSize: 10 }}>User</Text>
+              {/* <Image style={{ width: 40, height: 40, borderRadius: 10, backgroundColor: 'white' }} source={require('./account.png')} /> */}
+            </TouchableOpacity>
+          </View>
         </View>
         <Modal isVisible={this.state.isModalVisible}>
           <View style={{ height: 400, backgroundColor: 'white' }}>
