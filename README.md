@@ -21,16 +21,16 @@ AsaUlu is a mobile application that can helps cashier to manage production such 
 ## Requirements
 * [`React Native`](https://reactnative.dev/)
 * [`React Native Vector Icons`](https://github.com/oblador/react-native-vector-icons)
+* JDK
+* SDK
 </section>
 
 <section id="how-to-run">
 	
 ## How To Run
 1. Open your terminal or command prompt
-2. JDK
-3. SDK
-4. Type `git clone https://github.com/GunturThunder/AsaUlu-App-With-ReactNative.git`
-5. Open the folder and type `npm install` for install dependencies
+2. Type `git clone https://github.com/GunturThunder/AsaUlu-App-With-ReactNative.git`
+3. Open the folder and type `npm install` for install dependencies
 	#### Setup .env
 		Open .env file on your favorite code editor, and copy paste this code below :
 		```
