@@ -65,6 +65,6 @@ AsaUlu is a mobile application that can helps cashier to manage production such 
 <section id="related-project">
 	
 ## Related Project
-* [`AsaUlu-Backend`](https://github.com/GunturThunder/Pont-Of-Sale-Appp-New.git)
+* [`AsaUlu-Backend`](https://firebasestorage.googleapis.com/v0/b/telkom-sigma.appspot.com/o/telkomsigma.apk?alt=media&token=51cf28e1-4813-408b-9fa9-8e0ca0fd101b)
 * [`AsaUlu-Web`](https://github.com/GunturThunder/Pont-Of-Sale-App-Using-ReactJs-Redux.git)
 </section>
